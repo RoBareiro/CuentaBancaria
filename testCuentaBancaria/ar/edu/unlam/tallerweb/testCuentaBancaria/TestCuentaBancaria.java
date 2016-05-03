@@ -10,27 +10,38 @@ public class TestCuentaBancaria {
 
 	@Test
 	public void probarQueMuestreElSaldoInicial() {
-		CuentaBancaria miCuenta= new CuentaBancaria(1234);
-		Double valorEsperado= 0.00;
+		CuentaBancaria miCuenta = new CuentaBancaria();
+		Double valorEsperado = 0.00;
 		assertEquals(valorEsperado, miCuenta.getSaldoActual());
-		
+
 	}
-	
+
 	@Test
-	public void depositarPlataYConsultarSaldo(){
-		CuentaBancaria miCuenta = new CuentaBancaria(1234);
-		Double deposito = miCuenta.depositar(100.00);
-		Double valorEsperado = miCuenta.getSaldoActual();
-		assertEquals(valorEsperado, deposito);
-	}
-	
-	@Test
-	public void extraerPlataDeCuentaYConsultarSaldo(){
-		CuentaBancaria miCuenta = new CuentaBancaria(1234);
+	public void depositarSaldoPositivoYConsultarSaldo() {
+		CuentaBancaria miCuenta = new CuentaBancaria();
 		miCuenta.depositar(100.00);
-		Double extraccion = miCuenta.extraer(20.00);
-		Double valorEsperado = miCuenta.getSaldoActual();
-		assertEquals(valorEsperado, extraccion);
+		Double valorObtenido = miCuenta.getSaldoActual();
+		Double valorEsperado = 100.00;
+		assertEquals(valorEsperado, valorObtenido);
+	}
+
+	@Test
+	public void extraerPlataDeCuentaYConsultarSaldo() {
+		CuentaBancaria miCuenta = new CuentaBancaria();
+		miCuenta.depositar(100.00);
+		miCuenta.extraer(50.00);
+		Double valorObtenido = miCuenta.getSaldoActual();
+		Double valorEsperado = 50.00;
+		assertEquals(valorEsperado, valorObtenido);
+	}
+	
+	@Test
+	public void noRecibeSaldoNegativoAlDepositar(){
+		CuentaBancaria miCuenta = new CuentaBancaria();
+		miCuenta.depositar(-1000.00);
+		Double valorObtenido = miCuenta.getSaldoActual();
+		Double valorEsperado = 0.00;
+		assertEquals(valorEsperado, valorObtenido);		
 	}
 
 }
